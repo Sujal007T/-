@@ -1,0 +1,58 @@
+schema_version: "1.0"
+
+tasks:
+  dtr:
+    name: "Disaster Type Recognition"
+    aliases:
+      - "Disaster Type Recognition"
+      - "DTR"
+    fields:
+      pre_image: "pre_image_path"
+      post_image: "post_image_path"
+      ground_truth: "ground_truth"
+      ground_truth_option: "ground_truth_option"
+      options_str: "options_str"
+      options_list: "options_list"
+      prompt: "prompts"
+      task: "task"
+    known_disaster_types:
+      - "hurricane"
+      - "earthquake"
+      - "flood"
+      - "fire"
+      - "tornado"
+      - "tsunami"
+      - "explosion"
+      - "volcano"
+      - "wildfire"
+      - "landslide"
+
+  captioning:
+    name: "Disaster Report"
+    aliases:
+      - "Disaster Report"
+      - "disaster caption"
+    fields:
+      pre_image: "pre_image_path"
+      post_image: "post_image_path"
+      ground_truth: "ground_truth"
+      prompt: "prompts"
+      task: "task"
+    sections:
+      - "DISASTER"
+      - "BUILDING"
+      - "ROAD"
+      - "VEGETATION"
+      - "WATER_BODY"
+      - "AGRICULTURE"
+      - "CONCLUSION"
+
+vision:
+  min_pixels: 784       # 28 * 28
+  max_pixels: 200704    # 448 * 448
+  patch_grid: [2, 2]
+
+decoding:
+  max_new_tokens_dtr: 16
+  max_new_tokens_caption: 400
+

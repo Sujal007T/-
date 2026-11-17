@@ -1,0 +1,502 @@
+{
+  "caption_scoring_unified_unstemmed": {
+    "B": {
+      "rouge_l_nostem_mean": 0.23259430857239413,
+      "rouge_l_nostem_ci95": [
+        0.22752806397623032,
+        0.23791784538786695
+      ],
+      "bleu_4_sacre_mean": 0.05056768742963213,
+      "bleu_4_sacre_ci95": [
+        0.048097429222761924,
+        0.05319784347353094
+      ],
+      "bleu_4_nltk_mean": 0.030259099927634793,
+      "bleu_4_nltk_ci95": [
+        0.02729987378579463,
+        0.03334369237986396
+      ]
+    },
+    "C": {
+      "rouge_l_nostem_mean": 0.23446979945124088,
+      "rouge_l_nostem_ci95": [
+        0.22914693424727176,
+        0.2391799961862039
+      ],
+      "bleu_4_sacre_mean": 0.05117928234181591,
+      "bleu_4_sacre_ci95": [
+        0.0485359945699585,
+        0.054030881572676
+      ],
+      "bleu_4_nltk_mean": 0.032737284702696746,
+      "bleu_4_nltk_ci95": [
+        0.02900559684261744,
+        0.03612307880571217
+      ]
+    },
+    "D": {
+      "rouge_l_nostem_mean": 0.34290859375254656,
+      "rouge_l_nostem_ci95": [
+        0.3342848560373439,
+        0.35222022746457365
+      ],
+      "bleu_4_sacre_mean": 0.18205963955208865,
+      "bleu_4_sacre_ci95": [
+        0.1738966223188584,
+        0.1902890176717002
+      ],
+      "bleu_4_nltk_mean": 0.17445046105771772,
+      "bleu_4_nltk_ci95": [
+        0.16622408165158564,
+        0.18256686305603043
+      ]
+    },
+    "K": {
+      "rouge_l_nostem_mean": 0.3066647788139442,
+      "rouge_l_nostem_ci95": [
+        0.3014193092342286,
+        0.3122893607227951
+      ],
+      "bleu_4_sacre_mean": 0.16013451604201961,
+      "bleu_4_sacre_ci95": [
+        0.15447360747515088,
+        0.1657962110054898
+      ],
+      "bleu_4_nltk_mean": 0.15248143444546614,
+      "bleu_4_nltk_ci95": [
+        0.14639357325867755,
+        0.15864775165955158
+      ]
+    },
+    "D_blank": {
+      "rouge_l_nostem_mean": 0.31805228210753117,
+      "rouge_l_nostem_ci95": [
+        0.30962785913107393,
+        0.32685302277239986
+      ],
+      "bleu_4_sacre_mean": 0.17034638080706876,
+      "bleu_4_sacre_ci95": [
+        0.161481736961529,
+        0.17840394862877973
+      ],
+      "bleu_4_nltk_mean": 0.16028517467798944,
+      "bleu_4_nltk_ci95": [
+        0.15120306630034364,
+        0.16902594146985692
+      ]
+    },
+    "D_shuffled": {
+      "rouge_l_nostem_mean": 0.3042305172654658,
+      "rouge_l_nostem_ci95": [
+        0.2946595575207327,
+        0.3137216430372096
+      ],
+      "bleu_4_sacre_mean": 0.15110603916729237,
+      "bleu_4_sacre_ci95": [
+        0.14319434885372093,
+        0.16019532312450507
+      ],
+      "bleu_4_nltk_mean": 0.14031903855962008,
+      "bleu_4_nltk_ci95": [
+        0.13230804197780505,
+        0.14833793095832953
+      ]
+    }
+  },
+  "caption_paired_bootstrap": {
+    "D_vs_D_blank": {
+      "rouge_l_diff": 0.02485631164501532,
+      "rouge_l_item_ci95": [
+        0.016674954659437885,
+        0.032861417610856404
+      ],
+      "rouge_l_item_win_rate": 1.0,
+      "rouge_l_event_ci95": [
+        0.014849261623975242,
+        0.034471398961103086
+      ],
+      "rouge_l_event_win_rate": 1.0,
+      "bleu_4_diff": 0.011713258745019882,
+      "bleu_4_item_ci95": [
+        0.005860148539966574,
+        0.017941632122122565
+      ],
+      "bleu_4_item_win_rate": 1.0,
+      "bleu_4_event_ci95": [
+        0.0035718043294320403,
+        0.019689129720755254
+      ],
+      "bleu_4_event_win_rate": 0.997
+    },
+    "D_vs_D_shuffled": {
+      "rouge_l_diff": 0.038678076487080736,
+      "rouge_l_item_ci95": [
+        0.02829479085226559,
+        0.04958334982829373
+      ],
+      "rouge_l_item_win_rate": 1.0,
+      "rouge_l_event_ci95": [
+        0.0303461327738067,
+        0.045809097372019096
+      ],
+      "rouge_l_event_win_rate": 1.0,
+      "bleu_4_diff": 0.03095360038479629,
+      "bleu_4_item_ci95": [
+        0.023805270869060105,
+        0.03802944910004561
+      ],
+      "bleu_4_item_win_rate": 1.0,
+      "bleu_4_event_ci95": [
+        0.02521242204544366,
+        0.03698745346784077
+      ],
+      "bleu_4_event_win_rate": 1.0
+    },
+    "D_vs_K": {
+      "rouge_l_diff": 0.03624381493860232,
+      "rouge_l_item_ci95": [
+        0.02803134799349996,
+        0.04437149073571267
+      ],
+      "rouge_l_item_win_rate": 1.0,
+      "rouge_l_event_ci95": [
+        0.025629009388613035,
+        0.04677073738365782
+      ],
+      "rouge_l_event_win_rate": 1.0,
+      "bleu_4_diff": 0.021925123510069023,
+      "bleu_4_item_ci95": [
+        0.014614028006158374,
+        0.02953429212945361
+      ],
+      "bleu_4_item_win_rate": 1.0,
+      "bleu_4_event_ci95": [
+        0.012234375682214004,
+        0.03181702016365978
+      ],
+      "bleu_4_event_win_rate": 1.0
+    },
+    "D_vs_C": {
+      "rouge_l_diff": 0.10843879430130567,
+      "rouge_l_item_ci95": [
+        0.10056321991667917,
+        0.11656855456813107
+      ],
+      "rouge_l_item_win_rate": 1.0,
+      "rouge_l_event_ci95": [
+        0.09881961189760187,
+        0.11762567967668668
+      ],
+      "rouge_l_event_win_rate": 1.0,
+      "bleu_4_diff": 0.13088035721027275,
+      "bleu_4_item_ci95": [
+        0.12328064769133126,
+        0.13878627348771194
+      ],
+      "bleu_4_item_win_rate": 1.0,
+      "bleu_4_event_ci95": [
+        0.1205659340807897,
+        0.14082117213423856
+      ],
+      "bleu_4_event_win_rate": 1.0
+    }
+  },
+  "compliance_audit": {
+    "B": {
+      "total_samples": 200,
+      "compliant_count": 200,
+      "failed_count": 0,
+      "compliance_pct": 100.0,
+      "failed_details": []
+    },
+    "C": {
+      "total_samples": 200,
+      "compliant_count": 197,
+      "failed_count": 3,
+      "compliance_pct": 98.5,
+      "failed_details": [
+        {
+          "id": "bench_08812",
+          "missing_sections": [
+            "WATER_BODY",
+            "AGRICULTURE",
+            "CONCLUSION"
+          ],
+          "raw_char_len": 723,
+          "raw_word_count": 56,
+          "is_truncated": true,
+          "raw_snippet": "**DISASTER:** Earthquake\n\n**BUILDING:** Damaged\nThe building appears to have sustained structural damage, with visible c"
+        },
+        {
+          "id": "bench_09073",
+          "missing_sections": [
+            "CONCLUSION"
+          ],
+          "raw_char_len": 899,
+          "raw_word_count": 80,
+          "is_truncated": true,
+          "raw_snippet": "**DISASTER:** Earthquake\n\n**BUILDING:** Significant damage observed, with many buildings showing cracks, collapsed roofs"
+        },
+        {
+          "id": "bench_09260",
+          "missing_sections": [
+            "WATER_BODY"
+          ],
+          "raw_char_len": 745,
+          "raw_word_count": 92,
+          "is_truncated": false,
+          "raw_snippet": "**Disaster:** Earthquake\n\n**Building:** Significant damage observed, with many buildings showing cracks, collapsed roofs"
+        }
+      ]
+    },
+    "D": {
+      "total_samples": 200,
+      "compliant_count": 200,
+      "failed_count": 0,
+      "compliance_pct": 100.0,
+      "failed_details": []
+    },
+    "K": {
+      "total_samples": 200,
+      "compliant_count": 200,
+      "failed_count": 0,
+      "compliance_pct": 100.0,
+      "failed_details": []
+    },
+    "D_blank": {
+      "total_samples": 200,
+      "compliant_count": 200,
+      "failed_count": 0,
+      "compliance_pct": 100.0,
+      "failed_details": []
+    },
+    "D_shuffled": {
+      "total_samples": 200,
+      "compliant_count": 197,
+      "failed_count": 3,
+      "compliance_pct": 98.5,
+      "failed_details": [
+        {
+          "id": "bench_07465",
+          "missing_sections": [
+            "DISASTER",
+            "BUILDING",
+            "ROAD",
+            "VEGETATION",
+            "WATER_BODY",
+            "AGRICULTURE",
+            "CONCLUSION"
+          ],
+          "raw_char_len": 400,
+          "raw_word_count": 1,
+          "is_truncated": true,
+          "raw_snippet": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        },
+        {
+          "id": "bench_08625",
+          "missing_sections": [
+            "DISASTER",
+            "BUILDING",
+            "ROAD",
+            "VEGETATION",
+            "WATER_BODY",
+            "AGRICULTURE",
+            "CONCLUSION"
+          ],
+          "raw_char_len": 400,
+          "raw_word_count": 1,
+          "is_truncated": true,
+          "raw_snippet": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        },
+        {
+          "id": "bench_08747",
+          "missing_sections": [
+            "DISASTER",
+            "BUILDING",
+            "ROAD",
+            "VEGETATION",
+            "WATER_BODY",
+            "AGRICULTURE",
+            "CONCLUSION"
+          ],
+          "raw_char_len": 400,
+          "raw_word_count": 1,
+          "is_truncated": true,
+          "raw_snippet": "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        }
+      ]
+    }
+  },
+  "track_a_clean_uid_metrics": {
+    "Baseline A (ResNet50)": {
+      "accuracy": 0.7174786539427424,
+      "macro_f1": 0.6764468542265775,
+      "variance_score": 0.15946462339783238,
+      "per_class_f1": {
+        "no-damage": 0.8200836820083682,
+        "minor-damage": 0.44722048719550284,
+        "major-damage": 0.6077140169332079,
+        "destroyed": 0.8307692307692308
+      }
+    },
+    "Baseline B (ChangeDetection)": {
+      "accuracy": 0.7129583124058262,
+      "macro_f1": 0.6596696988960362,
+      "variance_score": 0.14561503960087815,
+      "per_class_f1": {
+        "no-damage": 0.8167539267015707,
+        "minor-damage": 0.4693627450980392,
+        "major-damage": 0.5681818181818182,
+        "destroyed": 0.7843803056027164
+      }
+    },
+    "Baseline C (BLIP-2)": {
+      "accuracy": 0.4321948769462582,
+      "macro_f1": 0.21100966630473883,
+      "variance_score": 0.24665966279050544,
+      "per_class_f1": {
+        "no-damage": 0.6072565245066837,
+        "minor-damage": 0.2294561333862644,
+        "major-damage": 0.0,
+        "destroyed": 0.007326007326007326
+      }
+    },
+    "Ensemble {A,B} (0.75/0.25)": {
+      "accuracy": 0.7225012556504269,
+      "macro_f1": 0.6809544791842052,
+      "variance_score": 0.15547918027902488,
+      "per_class_f1": {
+        "no-damage": 0.823210185764976,
+        "minor-damage": 0.4624922504649721,
+        "major-damage": 0.6054158607350096,
+        "destroyed": 0.8326996197718631
+      }
+    },
+    "Ensemble {A,B,C} (0.6/0.3/0.1)": {
+      "accuracy": 0.7207433450527373,
+      "macro_f1": 0.6858869925634076,
+      "variance_score": 0.15371175645792257,
+      "per_class_f1": {
+        "no-damage": 0.818639798488665,
+        "minor-damage": 0.464922711058264,
+        "major-damage": 0.6200607902735562,
+        "destroyed": 0.839924670433145
+      }
+    }
+  },
+  "track_a_cluster_ab_vs_a": {
+    "acc_diff": 0.005062238338852121,
+    "acc_ci95": [
+      -0.0019378352168464867,
+      0.011640459639883855
+    ],
+    "acc_win_rate": 0.922,
+    "f1_diff": 0.004471187453271135,
+    "f1_ci95": [
+      -0.002599330473958297,
+      0.011793304397179172
+    ],
+    "f1_win_rate": 0.893,
+    "var_diff": -0.0036983673219090746,
+    "var_ci95": [
+      -0.009482608650720694,
+      0.0026109661582288893
+    ]
+  },
+  "floor_metrics": {
+    "always_no_damage": {
+      "accuracy": 0.6745354093420391,
+      "macro_f1": 0.20140971805638871,
+      "variance_score": 0.348851864811788,
+      "per_class_f1": {
+        "no-damage": 0.8056388722255549,
+        "minor-damage": 0.0,
+        "major-damage": 0.0,
+        "destroyed": 0.0
+      }
+    },
+    "class_prior_sampler_train": {
+      "mean_accuracy": 0.5230640381717729,
+      "accuracy_ci95": [
+        0.5107985936715218,
+        0.5356604721245605
+      ],
+      "mean_macro_f1": 0.2474923573949918,
+      "macro_f1_ci95": [
+        0.23354348215783713,
+        0.260797967518514
+      ],
+      "mean_variance": 0.2629353223816978
+    },
+    "class_mix_clean_n3982": {
+      "no-damage": {
+        "count": 2686,
+        "pct": 67.45
+      },
+      "minor-damage": {
+        "count": 569,
+        "pct": 14.29
+      },
+      "major-damage": {
+        "count": 459,
+        "pct": 11.53
+      },
+      "destroyed": {
+        "count": 268,
+        "pct": 6.73
+      }
+    },
+    "class_mix_excl_n163": {
+      "no-damage": {
+        "count": 106,
+        "pct": 65.03
+      },
+      "minor-damage": {
+        "count": 21,
+        "pct": 12.88
+      },
+      "major-damage": {
+        "count": 25,
+        "pct": 15.34
+      },
+      "destroyed": {
+        "count": 11,
+        "pct": 6.75
+      }
+    }
+  },
+  "spot_check_clean": {
+    "n_samples": 200,
+    "seed": 42,
+    "fallback_rows_excluded": true,
+    "baseline_a": {
+      "max_abs_diff": 3.369041e-06,
+      "argmax_agreement": 200,
+      "argmax_agreement_pct": 100.0,
+      "verdict": "PASS"
+    },
+    "baseline_b": {
+      "max_abs_diff": 7.571448e-06,
+      "argmax_agreement": 200,
+      "argmax_agreement_pct": 100.0,
+      "verdict": "PASS"
+    },
+    "diagnosis": "On genuine clean test UIDs, CPU re-inference matches saved probabilities to within float32 numerical precision (diffs <= 7.57e-6) with 100.0% argmax agreement. The earlier check 1.6 failure (max abs diff 0.689 on Baseline A) was entirely driven by unseeded random.randint fallback sample substitution on boundary-clipped patches."
+  },
+  "blip2_parser_provenance": {
+    "variant_1_commit_ba3154d": {
+      "description": "Initial commit parser: exact keyword match on lowercased full output text without splitting Answer: or checking prompt echo.",
+      "label_agreement": 0.0012,
+      "label_agreement_count": "5 / 4145",
+      "max_prob_abs_diff": 0.6,
+      "status": "REFUTED"
+    },
+    "variant_2_current_baseline_c_vlm": {
+      "description": "Working tree parser: splits at 'Answer:', checks prompt echo pattern (['destroyed, major damage', 'destroyed, major, minor']) mapping to uniform [0.25] and class 0, and assigns 0.70 to matching keyword.",
+      "label_agreement": 1.0,
+      "label_agreement_count": "4145 / 4145 (100.0%)",
+      "max_prob_abs_diff": 0.0,
+      "status": "CONFIRMED_EXACT_ORIGIN"
+    }
+  }
+}

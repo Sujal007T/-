@@ -136,9 +136,8 @@ def run_ensemble_evaluation(results_dir: str, checkpoint_dir: str,
     preds_c = df_c["predicted_label"].values
     val_f1_c = f1_score(labels_c, preds_c, average="macro")
     
-    # We use the optimized weights found during the grid-search sensitivity analysis
-    # to maximize the Ensemble's Macro-F1 over Baseline A.
-    weights = (0.6, 0.3, 0.1)
+    # Compute leak-free ensemble weights strictly proportional to validation Macro-F1
+    weights = compute_ensemble_weights(val_f1_a, val_f1_b, val_f1_c)
     
     print("\n--- Step 6: Running Ensemble Prediction ---")
     combined_probs, ensemble_preds = ensemble_predict(probs_a, probs_b, probs_c, weights)
@@ -217,13 +216,25 @@ if __name__ == "__main__":
     with open("configs/config.yaml") as f:
         config = yaml.safe_load(f)
     
+    # Determine correct paths (prefer local workspace directory if available, else config path)
     class_names = config["xbd"]["damage_classes"]
+    local_project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    local_results = os.path.join(local_project_root, "results")
     
+    if os.path.exists(os.path.join(local_results, "baselines", "baseline_a_probs.csv")):
+        results_dir = local_results
+        checkpoint_dir = os.path.join(local_project_root, "checkpoints")
+        xbd_root = os.path.join(local_project_root, "data", "raw", "xbd", "train")
+    else:
+        results_dir = config["paths"]["results_dir"]
+        checkpoint_dir = config["paths"]["checkpoint_dir"]
+        xbd_root = config["paths"]["xbd_root"]
+
     print("Running ensemble evaluation (no models loaded — CPU only)...")
     results = run_ensemble_evaluation(
-        results_dir=config["paths"]["results_dir"],
-        checkpoint_dir=config["paths"]["checkpoint_dir"],
-        xbd_root=config["paths"]["xbd_root"],
+        results_dir=results_dir,
+        checkpoint_dir=checkpoint_dir,
+        xbd_root=xbd_root,
         class_names=class_names
     )
     

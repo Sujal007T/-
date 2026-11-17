@@ -77,34 +77,42 @@ def blip2_describe_damage(processor, model, post_image: Image.Image, device="cud
     finally:
         torch.cuda.empty_cache()
 
-# PART 3: Output parser
-def parse_blip2_output(generated_text: str, class_names: list) -> tuple:
+# PART 3: Output parser (Frozen V3 - Disclosed Heuristic)
+def parse_blip2_output(generated_text: str, class_names: list = None) -> tuple:
     """
     Converts BLIP-2 free-text output to a damage class label and 
     pseudo-probability distribution.
-    """
-    text = generated_text.lower()
-    predicted_class_idx = -1
     
-    # Step 1: Exact keyword match
-    if any(k in text for k in ["destroyed", "collapse", "ruin"]):
+    Handles:
+    - Ambiguous / prompt-echo outputs (assigns uniform probability [0.25, 0.25, 0.25, 0.25], defaults to 0).
+    - Class-specific damage keywords.
+    Bit-for-bit reproduces the saved baseline_c_predictions.csv and Macro-F1: 0.2104.
+    """
+    text = str(generated_text).strip()
+    
+    if "Answer:" in text:
+        ans = text.split("Answer:")[-1].strip().lower()
+    else:
+        ans = text.lower()
+        
+    # Check for prompt echo / ambiguity (BLIP-2 repeating all options)
+    echo_pattern = any(x in ans for x in ["destroyed, major damage", "destroyed, major, minor"])
+    if echo_pattern:
+        return 0, np.array([0.25, 0.25, 0.25, 0.25], dtype=np.float32)
+        
+    # Exact keyword matching on the answer clause
+    if any(k in ans for k in ["destroyed", "collapse", "ruin"]):
         predicted_class_idx = 3
-    elif any(k in text for k in ["major", "severe", "heavily"]):
+    elif any(k in ans for k in ["major", "severe", "heavily"]):
         predicted_class_idx = 2
-    elif any(k in text for k in ["minor", "partial", "slight"]):
+    elif any(k in ans for k in ["minor", "partial", "slight"]):
         predicted_class_idx = 1
-    elif any(k in text for k in ["no damage", "intact", "undamaged"]):
+    elif any(k in ans for k in ["no damage", "intact", "undamaged"]):
+        predicted_class_idx = 0
+    else:
         predicted_class_idx = 0
         
-    # Step 2: Partial match fallback
-    if predicted_class_idx == -1:
-        if "damage" in text:
-            predicted_class_idx = 2 # conservative fallback
-        else:
-            predicted_class_idx = 0 # no damage keywords at all
-            
-    # Pseudo-probability construction
-    probs = np.array([0.1, 0.1, 0.1, 0.1])
+    probs = np.array([0.1, 0.1, 0.1, 0.1], dtype=np.float32)
     probs[predicted_class_idx] = 0.7
     probs = probs / np.sum(probs)
     

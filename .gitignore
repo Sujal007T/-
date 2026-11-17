@@ -29,5 +29,9 @@ results/
 *.swp
 *.swo
 
-# MacOS
+# MacOS & Windows
 .DS_Store
+desktop.ini
+*/desktop.ini
+*/*/desktop.ini
+*/*/*/desktop.ini

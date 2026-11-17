@@ -1,0 +1,129 @@
+{
+  "manifest_version": "v3_final_freeze",
+  "created_at": "2026-11-17T11:30:00+05:30",
+  "training_metadata": {
+    "steps": 250,
+    "effective_batch_size": 8,
+    "checkpoint_folder": "checkpoints/lora_smoke_test_final",
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "base_model": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "train_dataset_size": 7514,
+    "train_dtr_items": 1314,
+    "effective_dtr_epochs": 0.266
+  },
+  "gpu_run_environment": {
+    "device": "NVIDIA Tesla T4 (15.78 GB)",
+    "cuda_version": "12.2",
+    "torch_version": "2.1.0+cu121",
+    "transformers_version": "4.45.2",
+    "peft_version": "0.13.2",
+    "bitsandbytes_version": "0.44.1"
+  },
+  "files": {
+    "results/baselines/baseline_a_probs.csv": {
+      "sha256": "0c92a64cee4ad18b223900f1226b474b355c41083b2ca3d94505a537d10454d2",
+      "size_bytes": 279972
+    },
+    "results/baselines/baseline_b_probs.csv": {
+      "sha256": "096f6464d34dbc27984a4f931055d7392f74305415a17238f6394484271b7eed",
+      "size_bytes": 275801
+    },
+    "results/baselines/baseline_c_predictions.csv": {
+      "sha256": "9aa52baf369558b73d71f370a3fcd80e7a4c0a990fa289404732781aafa4c571",
+      "size_bytes": 1858175
+    },
+    "results/baselines/baseline_a_test_results.json": {
+      "sha256": "01c55976621671e9ca61a12d451c243a80ea94ece1811ccfeacd824352b56f61",
+      "size_bytes": 313
+    },
+    "results/baselines/baseline_b_test_results.json": {
+      "sha256": "9e3b96284f06ee2c7e806ec23900507ea2bb4e93c529ef9b969a78885c3fcc3b",
+      "size_bytes": 314
+    },
+    "results/baselines/baseline_c_test_results.json": {
+      "sha256": "b2dc6c39b436998947c71ae802f1fa8f0dde893782ae6cd49efd13d644e85bcd",
+      "size_bytes": 367115
+    },
+    "results/final_freeze/baseline_a_val_predictions.csv": {
+      "sha256": "97052e56f6fb53d3944ed0ada82a23647609e1d211b6d59f480114e22ee604cb",
+      "size_bytes": 288456
+    },
+    "results/final_freeze/baseline_b_val_predictions.csv": {
+      "sha256": "b568601912fb27edc190a5a8408deebae47fd3796b8fadde2ea63a8b2b5c2cca",
+      "size_bytes": 289124
+    },
+    "results/final_freeze/v2/v2_analysis_summary.json": {
+      "sha256": "3a9da8854ca53a345483b63a8b52e6bed6a0322c29034cf30a3779c7470dc542",
+      "size_bytes": 18095
+    },
+    "results/track_b_v2/A/predictions.jsonl": {
+      "sha256": "d8318a2326e695adee1b8c71d08d1c12b107bbf1f70e0d59d31bd58a29632bdc",
+      "size_bytes": 1089394
+    },
+    "results/track_b_v2/B/predictions.jsonl": {
+      "sha256": "6f835d9771f77d594123d9d635529af20cc5706d2580dfebe2ded75c29364b7f",
+      "size_bytes": 647836
+    },
+    "results/track_b_v2/C/predictions.jsonl": {
+      "sha256": "c7da53ad9f49f9f3dca6ed94b63ec61d7b469ecdfbfa7d822e88158b40bca51c",
+      "size_bytes": 686671
+    },
+    "results/track_b_v2/D/predictions.jsonl": {
+      "sha256": "02690e7277204dd32c0b48286d3ee6195ad41fd2e2f674cc3806a5e5f2577978",
+      "size_bytes": 675202
+    },
+    "results/track_b_v2/K/predictions.jsonl": {
+      "sha256": "fa15afb623c755c186854ab3d5e64e787e474bc8ec3e44958d2ed4fa1c0fe505",
+      "size_bytes": 812691
+    },
+    "results/track_b_v2/O/predictions.jsonl": {
+      "sha256": "40610f3d8f1ee1ac9e942e4dd963370851c61806f55f6af1955db12151227ebf",
+      "size_bytes": 1007609
+    },
+    "results/track_b_v2/D_blank/predictions.jsonl": {
+      "sha256": "dcc33b79b9179eb761b04ea3aebe610451c8f0e21a322e70e2c963ee3c9c028a",
+      "size_bytes": 667560
+    },
+    "results/track_b_v2/D_shuffled/predictions.jsonl": {
+      "sha256": "ce0c3f9e4ec93ea87fb771ddb0fc9336972f14fd5febe016f19eca7b5a0da58d",
+      "size_bytes": 684095
+    },
+    "results/track_b_v2/bench_eval_ids.json": {
+      "sha256": "6614c6393d7cbe7e4fa3fb463c4af375643b609d852eb1599cf0bc66de1f5349",
+      "size_bytes": 484257
+    },
+    "checkpoints/baseline_a_best.pt": {
+      "sha256": "dfda40e06f71663f0cd8acafcb5d128d1505e1832521ff2185fe60d54f76f070",
+      "size_bytes": 284321249
+    },
+    "checkpoints/baseline_b_best.pt": {
+      "sha256": "899100dcd2784374570affe09f2bc7cf2893fca42e1866805b058eef4b81e4cf",
+      "size_bytes": 132926341
+    },
+    "checkpoints/lora_smoke_test_final/adapter_model.safetensors": {
+      "sha256": "f7413459b79beffc8fa2079091233161481241f5f223b5aca19a2aab07f4bb1f",
+      "size_bytes": 14766952
+    },
+    "checkpoints/lora_smoke_test_final/adapter_config.json": {
+      "sha256": "cc8c2dbfd19fbb225c0596467b69d05e0af0f18c5de77cd599fad41966121456",
+      "size_bytes": 1106
+    },
+    "results/final_freeze/v3/v3_analysis_summary.json": {
+      "sha256": "e0a09219ac6592877e939e4902c88dea1e8b0ad1cc6cd877aa7f894a18388ced",
+      "size_bytes": 14715
+    },
+    "results/final_freeze/v3/FINAL_CLAIMS_v3.md": {
+      "sha256": "bb05235c2104f90bb064d41253f806a1a4e20fcfc91966f7ebb42541a304c375",
+      "size_bytes": 7592
+    },
+    "results/final_freeze/v3/tables_paper.md": {
+      "sha256": "53d4c5396636d8d4a210e78a3bb46a78482a39f30f3586fff4b7f75be5c5b2c0",
+      "size_bytes": 9798
+    }
+  }
+}
