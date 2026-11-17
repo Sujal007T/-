@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Optimized Track B Full Training & Evaluation Script.
-Trains Qwen2.5-VL-3B with QLoRA on local GPU for 3 full epochs with class balancing.
+Universal Track B Full Training & Evaluation Script.
+Auto-detects Apple Silicon Metal (MPS) and NVIDIA CUDA (4-bit BitsAndBytes).
+Trains Qwen2.5-VL-3B with LoRA for 3 full epochs with class-balanced oversampling.
 """
 import os
 import sys
@@ -15,10 +16,9 @@ from torch.optim import AdamW
 from transformers import (
     Qwen2_5_VLForConditionalGeneration,
     AutoProcessor,
-    BitsAndBytesConfig,
     get_cosine_schedule_with_warmup
 )
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from peft import LoraConfig, get_peft_model
 from qwen_vl_utils import process_vision_info
 from tqdm import tqdm
 
@@ -40,11 +40,21 @@ MAX_STEPS = 800         # ~3 full epochs over balanced DTR items
 WARMUP_STEPS = 50
 SAVE_STEPS = 100
 
-if not torch.cuda.is_available():
-    raise RuntimeError("[ERROR] CUDA is not available. A dedicated NVIDIA GPU is required to run this script!")
-
-print(f"[INIT] Device: {torch.cuda.get_device_name(0)}")
-print(f"[INIT] Total VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+# --- DEVICE DETECTION (Apple Silicon MPS vs NVIDIA CUDA) ---
+if torch.backends.mps.is_available():
+    device_type = "mps"
+    device = torch.device("mps")
+    print("[INIT] Device Detected: Apple Silicon Metal (MPS)")
+    print("[INIT] Architecture: Unified Memory (24GB Pool)")
+elif torch.cuda.is_available():
+    device_type = "cuda"
+    device = torch.device("cuda")
+    print(f"[INIT] Device Detected: NVIDIA CUDA ({torch.cuda.get_device_name(0)})")
+    print(f"[INIT] Total VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+else:
+    device_type = "cpu"
+    device = torch.device("cpu")
+    print("[INIT] Device Detected: CPU (Warning: Training will be slow)")
 
 # 1. Load and Balance Dataset
 dtr_by_class = defaultdict(list)
@@ -78,7 +88,10 @@ for d_type, items in dtr_by_class.items():
     if len(items) >= target_per_class:
         balanced_dtr.extend(random.sample(items, target_per_class))
     else:
-        balanced_dtr.extend(items * (target_per_class // len(items)) + random.sample(items, target_per_class % len(items)))
+        # Oversample rare tail (volcano, explosion, tsunami)
+        mult = target_per_class // len(items)
+        rem = target_per_class % len(items)
+        balanced_dtr.extend(items * mult + random.sample(items, rem))
 
 # Combine 1:1 balanced DTR with selected caption reports
 sampled_captions = random.sample(caption_records, min(len(caption_records), len(balanced_dtr)))
@@ -88,25 +101,43 @@ random.shuffle(combined_training_data)
 print(f"[DATA] Prepared {len(combined_training_data)} balanced training samples:")
 print(f"       DTR: {len(balanced_dtr)} (balanced across {len(dtr_by_class)} classes) | Captions: {len(sampled_captions)}")
 
-# 2. Load Base Model in 4-bit
-bnb_config = BitsAndBytesConfig(
-    load_in_4bit=True,
-    bnb_4bit_quant_type="nf4",
-    bnb_4bit_compute_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
-    bnb_4bit_use_double_quant=True
-)
-
+# 2. Load Base Model
 model_id = "Qwen/Qwen2.5-VL-3B-Instruct"
-print(f"[MODEL] Loading {model_id} in 4-bit NF4...")
 processor = AutoProcessor.from_pretrained(model_id, min_pixels=256*28*28, max_pixels=512*28*28)
-model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-    model_id,
-    quantization_config=bnb_config,
-    device_map="auto",
-    torch_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
-)
 
-model = prepare_model_for_kbit_training(model)
+if device_type == "cuda":
+    from transformers import BitsAndBytesConfig
+    from peft import prepare_model_for_kbit_training
+    bnb_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16,
+        bnb_4bit_use_double_quant=True
+    )
+    print(f"[MODEL] Loading {model_id} in 4-bit NF4 for CUDA...")
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        model_id,
+        quantization_config=bnb_config,
+        device_map="auto",
+        torch_dtype=torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
+    )
+    model = prepare_model_for_kbit_training(model)
+elif device_type == "mps":
+    print(f"[MODEL] Loading {model_id} in Native 16-bit for Apple Silicon MPS (uses ~6GB of 24GB Unified RAM)...")
+    # Native float16 runs with zero quantization loss on Apple Silicon Metal
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        model_id,
+        torch_dtype=torch.float16,
+        low_cpu_mem_usage=True
+    ).to(device)
+else:
+    print(f"[MODEL] Loading {model_id} on CPU...")
+    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+        model_id,
+        torch_dtype=torch.float32,
+        low_cpu_mem_usage=True
+    ).to(device)
+
 lora_config = LoraConfig(
     r=16,
     lora_alpha=32,
@@ -152,7 +183,7 @@ while step < MAX_STEPS:
     try:
         text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=False)
         image_inputs, _ = process_vision_info(messages)
-        inputs = processor(text=[text], images=image_inputs, return_tensors="pt", padding=True).to("cuda")
+        inputs = processor(text=[text], images=image_inputs, return_tensors="pt", padding=True).to(device)
 
         # Mask loss to assistant tokens only
         labels = inputs.input_ids.clone()
